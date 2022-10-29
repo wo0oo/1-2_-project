@@ -1,0 +1,2 @@
+def ahhha():
+    pass
