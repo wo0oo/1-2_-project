@@ -8,7 +8,7 @@ from selenium.webdriver.common.keys import Keys
 import time 
 import datetime
 import re
-
+import random
 
 def find_info():
     global Id
@@ -37,23 +37,29 @@ def find_info():
     
     return info
 
+
+
+url='https://www.lost112.go.kr/find/findList.do'
+
+option=webdriver.ChromeOptions()
+option.add_experimental_option('excludeSwitches',['enable-logging'])
+# browser = webdriver.Chrome(options=option,service=Service(ChromeDriverManager().install()))
+browser=webdriver.Chrome(options=option)
+browser.maximize_window()# 전체화면
+
+
+
 while(1):
-
-
-    url='https://www.lost112.go.kr/find/findList.do'
-
-    option=webdriver.ChromeOptions()
-    option.add_experimental_option('excludeSwitches',['enable-logging'])
-    # browser = webdriver.Chrome(options=option,service=Service(ChromeDriverManager().install()))
-    browser=webdriver.Chrome(options=option)
-    browser.maximize_window()# 전체화면
+    time.sleep(random.randint(1,3))# 트래픽 방지
 
 
     #같은 경로가 아닐경우 안에 파일경로를 입력해주어야한다.
 
-    for temp in range(3):
+    for temp in range(5):
         browser.get(url)# 주소안으로 접속
-        Id=browser.find_elements(By.TAG_NAME,"td")[temp].text
+        Id=browser.find_elements(By.TAG_NAME,"tr")[temp+1]
+        Id=Id.find_element(By.TAG_NAME,'a').text
+        print(Id)
         browser.get(find_info())#새로운 유실물창 접속
 
         elem=browser.find_element(By.CLASS_NAME,"find_info").text
@@ -66,28 +72,11 @@ while(1):
         if target2.search(arr[5])!='':# 물품분류가 맞는지 확인
             if target1.search(arr[0])!='': # 습득물 명이 맞는지 확인
                 pass # 메일 함수 실행 및 전송
-
-
-    time.sleep(10)
-
+        time.sleep(random.randint(1,3))# 트래픽 방지
 
 
 
 
-
-#elem.find_element(By.XPATH,"//*[@id='contents']/div[2]/div[1]/div[3]").text
-
-
-
-
-
-# res=requests.get(bs_url)
-# res.raise_for_status()
-# soup=BeautifulSoup(res.text,"lxml")
-# info=soup.find_all("div",{"class":"find_info"})
-
-# for x in info:
-#     print(info.get_text())
 
 
 
