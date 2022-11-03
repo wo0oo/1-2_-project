@@ -1,8 +1,5 @@
-import requests
-from bs4 import BeautifulSoup
 from selenium import webdriver
 from selenium.webdriver.common.by import By
-from selenium.webdriver.common.keys import Keys
 # from selenium.webdriver.chrome.service import Service#셀레니움 4부터 사용하기위한 클래스
 # from webdriver_manager.chrome import ChromeDriverManager #셀레니움 4부터 사용하기위한 클래스
 import time 
@@ -30,9 +27,11 @@ def find_info():
 
     End_Ymd=str(year)+str(month)+day
 
+    a=''
+    b=''# 물품 분류 코드 
 
     url="https://www.lost112.go.kr/find/findDetail.do?"
-    info=f"pageIndex=1&PRDT_CL_NM=&PRDT_CL_CD01=&PRDT_CL_CD02=&START_YMD={Start_Ymd}&END_YMD={End_Ymd}&PRDT_NM=&DEP_PLACE=&SITE=&PLACE_SE_CD=&FD_LCT_CD=&IN_NM=&MDCD=&SRNO=&IMEI_NO=&F_ATC_ID=&ATC_ID={Id}&FD_SN=1&MENU_NO="
+    info=f"pageIndex=1&PRDT_CL_NM=&PRDT_CL_CD01={a}&PRDT_CL_CD02={b}&START_YMD={Start_Ymd}&END_YMD={End_Ymd}&PRDT_NM=&DEP_PLACE=&SITE=&PLACE_SE_CD=&FD_LCT_CD=&IN_NM=&MDCD=&SRNO=&IMEI_NO=&F_ATC_ID=&ATC_ID={Id}&FD_SN=1&MENU_NO="
     info=url+info
     
     return info
@@ -45,7 +44,7 @@ option=webdriver.ChromeOptions()
 option.add_experimental_option('excludeSwitches',['enable-logging'])
 # browser = webdriver.Chrome(options=option,service=Service(ChromeDriverManager().install()))
 browser=webdriver.Chrome(options=option)
-browser.maximize_window()# 전체화면
+browser.minimize_window()# 전체화면
 
 
 
@@ -72,6 +71,9 @@ while(1):
         if target2.search(arr[5])!='':# 물품분류가 맞는지 확인
             if target1.search(arr[0])!='': # 습득물 명이 맞는지 확인
                 pass # 메일 함수 실행 및 전송
+
+
+
         time.sleep(random.randint(1,3))# 트래픽 방지
 
 
