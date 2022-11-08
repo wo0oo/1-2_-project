@@ -20,7 +20,7 @@ while True:
         s=smtplib.SMTP('smtp.gmail.com',587)
         s.starttls()
         s.login('lostarticle07@gmail.com','blnlfnaaieegbola')
-        msg=MIMEText('Hi Hello 니하오')
-        msg['Subject']='ㅎㅇ'
+        msg=MIMEText('본문')
+        msg['Subject']='제목'
         s.sendmail("lostarticle07@gmail.com",user_mail,msg.as_string())
         s.quit()
